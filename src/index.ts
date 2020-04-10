@@ -21,25 +21,13 @@ function handleEvent(event: WebhookEvent) {
             event.source.groupId,
             userId
           );
-
-          await client.replyMessage(event.replyToken, {
-            type: 'text',
-            text: newMemberNotice(user.displayName)
-          });
+          await client.replyMessage(
+            event.replyToken,
+            newMemberNotice(user.displayName)
+          );
         }
       })
     );
-  }
-
-  if (
-    event.type === 'message' &&
-    event.message.type === 'text' &&
-    event.message.text.startsWith('新成員測試')
-  ) {
-    return client.replyMessage(event.replyToken, {
-      type: 'text',
-      text: newMemberNotice(event.message.text.split(':')[1] || '')
-    });
   }
 
   return Promise.resolve(null);
