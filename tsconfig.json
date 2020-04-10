@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es2015"],
+    "outDir": "./dist",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "pretty": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "**/node_modules/*"]
+}
