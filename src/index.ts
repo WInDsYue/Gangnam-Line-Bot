@@ -1,7 +1,7 @@
 import express from 'express';
-import * as line from '@line/bot-sdk';
 import { WebhookEvent } from '@line/bot-sdk';
-import { newMemberNotice } from './messages';
+import { newMemberNotice, joinGroup } from './messages';
+import * as line from '@line/bot-sdk';
 import './env';
 
 const config = {
@@ -13,21 +13,26 @@ const PORT = process.env.PORT || 3000;
 
 const client = new line.Client(config);
 function handleEvent(event: WebhookEvent) {
-  if (event.type === 'memberJoined' && event.source.type === 'group') {
-    return Promise.all(
-      event.joined.members.map(async ({ userId }) => {
-        if (event.source.type === 'group') {
-          const user = await client.getGroupMemberProfile(
-            event.source.groupId,
-            userId
-          );
-          await client.replyMessage(
-            event.replyToken,
-            newMemberNotice(user.displayName)
-          );
-        }
-      })
-    );
+  if (event.source.type === 'group') {
+    switch (event.type) {
+      case 'memberJoined':
+        return Promise.all(
+          event.joined.members.map(async ({ userId }) => {
+            if (event.source.type === 'group') {
+              const user = await client.getGroupMemberProfile(
+                event.source.groupId,
+                userId
+              );
+              await client.replyMessage(
+                event.replyToken,
+                newMemberNotice(user.displayName)
+              );
+            }
+          })
+        );
+      case 'join':
+        return client.replyMessage(event.replyToken, joinGroup());
+    }
   }
 
   return Promise.resolve(null);
