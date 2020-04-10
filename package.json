@@ -9,11 +9,11 @@
     "start": "node ./dist/",
     "dev": "nodemon --exec ts-node --files src/index.ts",
     "build": "tsc",
-    "build:clean": "rimraf ./build",
-    "prestart": "yarn build",
+    "build:clean": "rimraf ./dist",
     "get": "ts-node --files scripts/types.ts",
     "lint": "eslint 'src/**/*.ts'",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "heroku-postbuild": "yarn build"
   },
   "lint-staged": {
     "*.ts": [
