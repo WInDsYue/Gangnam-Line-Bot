@@ -1,5 +1,5 @@
 {
-  "name": "typescript-node-starter",
+  "name": "gangnam-line-bot",
   "version": "1.0.0",
   "description": "nodejs typescript starter",
   "main": "index.ts",
