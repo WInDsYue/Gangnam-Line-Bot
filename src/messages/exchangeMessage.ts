@@ -5,12 +5,14 @@ const pool: Record<string, number> = {
   百年銀杏: 150,
   荷花池塘: 150,
   竹林花園: 150,
-  簡陋牌坊: 15,
-  大理石牌坊: 15,
-  漢白玉牌坊: 15,
   玩具攤: 20,
   早餐攤: 20,
-  算掛攤: 20
+  算掛攤: 20,
+  牌坊: 15
+};
+
+const getValue = (name: string): number | undefined => {
+  return pool[name] ? pool[name] : /牌坊$/.test(name) ? 15 : undefined;
 };
 
 const objects = Object.keys(pool);
@@ -22,7 +24,7 @@ const values: Record<string, number> = {
 };
 
 export function exchangeMessage(name: string): Message {
-  const value = pool[name];
+  const value = getValue(name);
   if (value) {
     const result = Object.entries(values)
       .reduce<string[]>((res, [key, v]) => [...res, `${value / v}${key}`], [])
@@ -38,7 +40,7 @@ export function exchangeMessage(name: string): Message {
     type: 'text',
     text: trimWhiteSpace(`
       未有記錄，目前只有以下這些
-      ${objects.join(' / ')} 
+      ${objects.join(' / ')} / 各種牌坊 
       歡迎提供數據, 但要已 告示板 / 樹 / 應天農田的數量為主`)
   };
 }
