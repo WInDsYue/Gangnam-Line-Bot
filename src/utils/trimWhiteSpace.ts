@@ -1,2 +1,6 @@
 export const trimWhiteSpace = (text: string) =>
-  text.trim().replace(/^ {2}/gm, '');
+  text
+    .trim()
+    .split('\n')
+    .map(s => s.trim())
+    .join('\n');
