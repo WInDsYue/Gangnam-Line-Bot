@@ -7,7 +7,8 @@ const pool: Record<string, number> = {
   竹林花園: 150,
   玩具攤: 20,
   早餐攤: 20,
-  算掛攤: 20
+  算掛攤: 20,
+  石碑亭: 25
 };
 
 const getValue = (name: string): number | undefined => {
