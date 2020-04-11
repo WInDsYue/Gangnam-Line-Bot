@@ -37,10 +37,11 @@ function handleEvent(event: WebhookEvent) {
 
   if (event.type === 'message' && event.message.type === 'text') {
     const { text } = event.message;
-    if (text.startsWith('我想換')) {
+    const exchangePrefix = `我有月卡想換`;
+    if (text.startsWith(`${exchangePrefix}`)) {
       return client.replyMessage(
         event.replyToken,
-        exchangeMessage(text.replace(/^我想換/, ''))
+        exchangeMessage(text.replace(new RegExp(`^${exchangePrefix}`), ''))
       );
     }
   }

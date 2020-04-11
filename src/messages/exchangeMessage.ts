@@ -39,6 +39,6 @@ export function exchangeMessage(name: string): Message {
     text: trimWhiteSpace(`
       未有記錄，目前只有以下這些
       ${objects.join(' / ')} 
-      歡迎提供數據`)
+      歡迎提供數據, 但要已 告示板 / 樹 / 應天農田的數量為主`)
   };
 }
