@@ -1,6 +1,6 @@
 import express from 'express';
 import { WebhookEvent } from '@line/bot-sdk';
-import { newMemberNotice, joinGroup } from './messages';
+import { newMemberNotice, joinGroup, exchangeMessage } from './messages';
 import * as line from '@line/bot-sdk';
 import './env';
 
@@ -32,6 +32,16 @@ function handleEvent(event: WebhookEvent) {
         );
       case 'join':
         return client.replyMessage(event.replyToken, joinGroup());
+    }
+  }
+
+  if (event.type === 'message' && event.message.type === 'text') {
+    const { text } = event.message;
+    if (text.startsWith('我想換')) {
+      return client.replyMessage(
+        event.replyToken,
+        exchangeMessage(text.replace(/^我想換/, ''))
+      );
     }
   }
 
